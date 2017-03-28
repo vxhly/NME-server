@@ -71,20 +71,33 @@ module.exports = {
     const param = req.body || req.query || req.params; // post 提交的数据
     pool.getConnection((err, connection) => {
       connection.query(
-        $sql.articleUpdate, [param.name, param.author, param.id],
+        $sql.articleById, param.id,
         (err, result) => {
-          if (result.length != 0) {
-            result = {
-              code: 200,
-              msg: '修改成功'
-            };
+          if (result.length == 1 && param.author != '' && param.name != '') {
+            //console.log(result);
+            connection.query(
+              $sql.articleUpdate, [param.name, param.author, param.id],
+              (err, result) => {
+                if (result) {
+                  result = {
+                    code: 200,
+                    msg: '更新数据成功'
+                  };
+                } else {
+                  result = {
+                    code: 200,
+                    msg: '更新数据失败'
+                  };
+                }
+                jsonWrite(res, result);
+              });
           } else {
             result = {
               code: 100,
-              msg: '修改失败'
+              msg: '无效的数据'
             };
+            jsonWrite(res, result);
           }
-          jsonWrite(res, result);
           connection.release();
         });
     });

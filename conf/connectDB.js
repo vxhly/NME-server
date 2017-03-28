@@ -14,7 +14,7 @@ module.exports = {
         msg: '操作失败'
       });
     } else {
-      res.json(ret);
+      res.status(200).json(ret);
     }
   },
   pool: mysql.createPool($util.extend({}, $conf.mysql)) // 连接数据库

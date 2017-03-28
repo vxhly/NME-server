@@ -2,6 +2,7 @@ const article = {
   // 查
   articleByName: 'select * from `article` where `name` like ?',
   articleAll: 'select * from `article`',
+  articleById: 'select * from `article` where `id` = ?',
 
   // 增
   articleAdd: 'insert into `article` (`id`, `name`, `author`) values(0, ?, ?)',
