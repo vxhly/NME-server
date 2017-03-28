@@ -1,6 +1,6 @@
 {
   "name": "NME-server",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "node+express+mysql project",
   "author": "vxhly <904334946@qq.com>",
   "private": true,
