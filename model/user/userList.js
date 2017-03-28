@@ -1,13 +1,13 @@
 // 实现与 mysql 交互
-const connectDB = require('../../conf/connectDB.js');
+import connectDB from '../../conf/connectDB.js';
 const pool = connectDB.pool;
 const jsonWrite = connectDB.jsonWrite;
 
 // 数据库语句
-const $sql = require('./userSql.js');
+import $sql from './userSql.js';
 
 // 获取登录 IP
-function getClientIp(req) {
+let getClientIp = (req) => {
   return req.headers['x-forwarded-for'] ||
     req.connection.remoteAddress ||
     req.socket.remoteAddress ||
@@ -15,17 +15,17 @@ function getClientIp(req) {
 }
 
 module.exports = {
-  userByEamil: function(req, res, next) {
-    pool.getConnection(function(err, connection) {
+  userByEamil: (req, res, next) => {
+    pool.getConnection((err, connection) => {
       const param = req.body || req.query || req.params; // post 提交的数据
-      pool.getConnection(function(err, connection) {
+      pool.getConnection((err, connection) => {
         connection.query(
           $sql.loginByEmail, param.email,
-          function(err, result) {
+          (err, result) => {
             if (result.length == 1) {
               connection.query(
                 $sql.loginByPasswd, [param.email, param.passwd],
-                function(err, result) {
+                (err, result) => {
                   if (result.length == 1) {
                     const IP = getClientIp(req);
                     if (IP.lastIndexOf(':') != '-1') {
@@ -33,7 +33,7 @@ module.exports = {
                       const date = new Date().getTime(); // 获取时间戳
                       connection.query(
                         $sql.loginUpdate, [ip, date, param.email],
-                        function(err, result) {
+                        (err, result) => {
                           if (result) {
                             result = {
                               code: 200,

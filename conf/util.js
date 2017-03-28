@@ -1,5 +1,5 @@
 module.exports = {
-  extend: function(target, source, flag) {
+  extend: (target, source, flag) => {
     for (const key in source) {
       if (source.hasOwnProperty(key))
         flag ?

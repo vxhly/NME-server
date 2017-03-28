@@ -1,12 +1,12 @@
 // conf/connectDB.js
 // 实现与mysql交互
-const mysql = require('mysql');
-const $conf = require('./db.js'); // 数据库的配置
-const $util = require('./util.js'); // 数据库查询驱动
+import mysql from 'mysql';
+import $conf from './db.js'; // 数据库的配置
+import $util from './util.js'; // 数据库查询驱动
 
 module.exports = {
   // 向前台返回 JSON 方法的简单封装
-  jsonWrite: function(res, ret) {
+  jsonWrite: (res, ret) => {
     //res.send(ret);
     if (typeof ret === 'undefined') {
       res.json({

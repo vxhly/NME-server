@@ -1,19 +1,19 @@
 // model/article/articleList.js
 // 实现与 mysql 交互
-const connectDB = require('../../conf/connectDB.js');
+import connectDB from '../../conf/connectDB.js';
 const pool = connectDB.pool;
 const jsonWrite = connectDB.jsonWrite;
 
 // 数据库语句
-const $sql = require('./articleSql.js');
+import $sql from './articleSql.js';
 
 module.exports = {
   /* 查询所有数据 */
-  articleAll: function(req, res, next) {
-    pool.getConnection(function(err, connection) {
+  articleAll: (req, res, next) => {
+    pool.getConnection((err, connection) => {
       connection.query(
         $sql.articleAll,
-        function(err, result) {
+        (err, result) => {
           if (result.length == 0) {
             result = {
               code: 100,
@@ -26,12 +26,12 @@ module.exports = {
     });
   },
   /* 根据 name 查询数据 */
-  articleByName: function(req, res, next) {
+  articleByName: (req, res, next) => {
     const param = req.body || req.query || req.params; // post 提交的数据
-    pool.getConnection(function(err, connection) {
+    pool.getConnection((err, connection) => {
       connection.query(
         $sql.articleByName, '%' + param.name + '%',
-        function(err, result) {
+        (err, result) => {
           if (result.length == 0) {
             result = {
               code: 100,
@@ -44,12 +44,12 @@ module.exports = {
     });
   },
   /* 增加数据 */
-  articleAdd: function(req, res, next) {
+  articleAdd: (req, res, next) => {
     const param = req.body || req.query || req.params; // post 提交的数据
-    pool.getConnection(function(err, connection) {
+    pool.getConnection((err, connection) => {
       connection.query(
         $sql.articleAdd, [param.name, param.author],
-        function(err, result) {
+        (err, result) => {
           if (result.length != 0 && param.name != '' && param.author != '') {
             result = {
               code: 200,
@@ -67,12 +67,12 @@ module.exports = {
     });
   },
   /* 根据 ID 修改数据 */
-  articleUpdate: function(req, res, next) {
+  articleUpdate: (req, res, next) => {
     const param = req.body || req.query || req.params; // post 提交的数据
-    pool.getConnection(function(err, connection) {
+    pool.getConnection((err, connection) => {
       connection.query(
         $sql.articleUpdate, [param.name, param.author, param.id],
-        function(err, result) {
+        (err, result) => {
           if (result.length != 0) {
             result = {
               code: 200,
@@ -90,12 +90,12 @@ module.exports = {
     });
   },
   /* 根据 ID 删除数据 */
-  articleDelete: function(req, res, next) {
+  articleDelete: (req, res, next) => {
     const param = req.body || req.query || req.params; // post 提交的数据
-    pool.getConnection(function(err, connection) {
+    pool.getConnection((err, connection) => {
       connection.query(
         $sql.articleDelete, param.id,
-        function(err, result) {
+        (err, result) => {
           if (result.length != 0) {
             result = {
               code: 200,

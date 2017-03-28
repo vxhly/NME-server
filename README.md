@@ -1,6 +1,8 @@
 # NME-server
 
 > node+express+mysql project
+>
+> 使用 es6 语法编写
 
 ## run
 
