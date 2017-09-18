@@ -1,8 +1,8 @@
 {
   "name": "NME-server",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "node+express+mysql project",
-  "author": "vxhly <904334946@qq.com>",
+  "author": "vxhly <pengchengou@gmail.com>",
   "private": true,
   "scripts": {
     "start": "nodemon bin/www.js --exec babel-node"
